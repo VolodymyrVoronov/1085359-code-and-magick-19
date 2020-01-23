@@ -42,8 +42,8 @@ function generateShadow(ctx, positionX, postionY, width, height, gap, color) {
   ctx.fillRect(positionX + gap, postionY + gap, width, height);
 }
 
-// function generateBar(ctx, barGap, multiplier, positionY, width, array, maxTime, index) {
-//   ctx.fillRect(barGap = barGap + multiplier, positionY, width, (Math.floor(array[index]) / (maxTime / 100)));
+// function generateBar(ctx, barGap, multiplier, positionY, width, heightOfBar) {
+//   ctx.fillRect(barGap = barGap + multiplier, positionY, width, heightOfBar);
 // }
 
 var getMaxElement = function (arr) {
@@ -69,12 +69,14 @@ window.renderStatistics = function (ctx, players, times) {
   ctx.fillText('Список результатов: ', 120, 65);
 
   for (var i = 0; i < players.length; i++) {
+    var random = -(Math.floor(times[i]) / (maxTime / 100));
+    // console.log(random);
     ctx.fillStyle = 'rgba(0, 0, 0, 1)';
     ctx.fillText(Math.floor(times[i]), FONT_GAP_X = FONT_GAP_X + 100, FONT_GAP_Y - 15);
     paintingPlayer(players, ctx, i);
     // ctx.rotate( (Math.PI / 180) * 25);
-    // generateBar(ctx, BAR_GAP, MULTIPLIER, BAR_POSITON_Y, BAR_WIDTH, times, maxTime, i);
-    ctx.fillRect(BAR_GAP = BAR_GAP + 100, BAR_POSITON_Y, BAR_WIDTH, -(Math.floor(times[i]) / (maxTime / 100)));
+    // generateBar(ctx, BAR_GAP, MULTIPLIER, BAR_POSITON_Y, BAR_WIDTH, random);
+    ctx.fillRect(BAR_GAP = BAR_GAP + 100, BAR_POSITON_Y, BAR_WIDTH, random);
     // console.log(Math.floor(times[i]) / (maxTime / 100));
   }
 
