@@ -80,7 +80,7 @@ window.renderStatistics = function (ctx, players, times) {
     var barHeight = -(150 * times[i] / maxTime);
     // console.log(random);
     ctx.fillStyle = 'rgba(0, 0, 0, 1)';
-    ctx.fillText(Math.floor(times[i]), FONT_GAP_X = FONT_GAP_X + 100, barHeight + 220);
+    ctx.fillText(Math.floor(times[i]), FONT_GAP_X = FONT_GAP_X + MULTIPLIER, barHeight + 220);
     paintingPlayer(players, ctx, i);
     // ctx.rotate( (Math.PI / 180) * 25);
     // generateBar(ctx, BAR_GAP, MULTIPLIER, BAR_POSITON_Y, BAR_WIDTH, random);
