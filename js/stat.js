@@ -19,7 +19,7 @@ var NAME_GAP = 50;
 var MULTIPLIER = 100;
 
 function paintingPlayer(arr, ctx, i) {
-  if (arr[i] === 'Вы') {
+  if (arr[i] === 'Goose') {
     ctx.fillStyle = 'red';
   } else {
     ctx.fillStyle = getRandomColor();
