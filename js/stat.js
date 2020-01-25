@@ -66,7 +66,10 @@ var getMaxElement = function (arr) {
 
 window.renderStatistics = function (ctx, players, times) {
   var maxTime = Math.floor(getMaxElement(times));
-  // console.log(maxTime);
+  NAME_GAP = 50;
+  MULTIPLIER = 100;
+  FONT_GAP_X = 50;
+  BAR_GAP = 50;
   generateShadow(ctx, RESULTS_POSITION_X, RESULTS_POSITION_Y, RESULTS_WIDTH, RESULTS_HEIGHT, GAP, SHADOW_COLOR);
   generateCloud(ctx, RESULTS_POSITION_X, RESULTS_POSITION_Y, RESULTS_WIDTH, RESULTS_HEIGHT, CLOUD_COLOR);
 
@@ -78,14 +81,12 @@ window.renderStatistics = function (ctx, players, times) {
 
   for (var i = 0; i < players.length; i++) {
     var barHeight = -(150 * times[i] / maxTime);
-    // console.log(random);
     ctx.fillStyle = 'rgba(0, 0, 0, 1)';
     ctx.fillText(Math.floor(times[i]), FONT_GAP_X = FONT_GAP_X + MULTIPLIER, barHeight + 220);
     paintingPlayer(players, ctx, i);
-    // ctx.rotate( (Math.PI / 180) * 25);
     // generateBar(ctx, BAR_GAP, MULTIPLIER, BAR_POSITON_Y, BAR_WIDTH, random);
     ctx.fillRect(BAR_GAP = BAR_GAP + MULTIPLIER, BAR_POSITON_Y, BAR_WIDTH, barHeight);
-    // console.log(Math.floor(times[i]) / (maxTime / 100));
+
     // generateName(ctx, players, i, NAME_GAP, MULTIPLIER, FONT_GAP, NAME_COLOR);
     ctx.fillStyle = 'rgba(0, 0, 0, 1)';
     ctx.fillText(players[i], NAME_GAP = NAME_GAP + MULTIPLIER, FONT_GAP);
