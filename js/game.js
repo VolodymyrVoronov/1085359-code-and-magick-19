@@ -472,7 +472,7 @@ window.Game = (function () {
       var minTimeInSec = 1000;
 
       var statistic = {
-        'Вы': time
+        'Goose': time
       };
 
       for (var i = 0; i < NAMES.length; i++) {
