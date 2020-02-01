@@ -1,4 +1,45 @@
 'use strict';
+var WIZARDS_FIRST_NAME = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
+var WIZARDS_LAST_NAME = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
+var WIZARDS_AMOUNT = 4;
+var ESC_KEY = 'Escape';
+var ENTER_KEY = 'Enter';
+var TAB_KEY = 'Tab';
+
+var userInfo = document.querySelector('.setup');
+
+var similarListElement = document.querySelector('.setup-similar-list');
+var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
+
+var userInfoOpen = document.querySelector('.setup-open');
+var userInfoClose = userInfo.querySelector('.setup-close');
+var userNameInput = userInfo.querySelector('.setup-user-name[type="text"]');
+
+var settingsOfWizard = document.querySelector('.setup-wizard');
+var colorOfCoatOfWizard = settingsOfWizard.querySelector('.wizard-coat');
+var colorOfEyesOfWizard = settingsOfWizard.querySelector('.wizard-eyes');
+var colorOfFireballOfWizards = document.querySelector('.setup-fireball-wrap');
+var colorOfFireballOfWizardsInput = colorOfCoatOfWizard.getElementsByTagName('input');
+
+function onUserInfoPress(e) {
+  if (e.key === ESC_KEY) {
+    closeUserInfo();
+  }
+}
+
+function openUserInfo() {
+  userInfo.classList.remove('hidden');
+  document.addEventListener('keydown', onUserInfoPress);
+}
+
+function closeUserInfo() {
+  userInfo.classList.add('hidden');
+  document.removeEventListener('keydown', onUserInfoPress);
+}
+
+function changeColorOfFill(obj) {
+  obj.style.fill = getRandomColor();
+}
 
 function getRandomColor() {
   var letters = '0123456789ABCDEF';
@@ -9,19 +50,9 @@ function getRandomColor() {
   return color;
 }
 
-var userInfo = document.querySelector('.setup');
-userInfo.classList.remove('hidden');
-
-var similarListElement = document.querySelector('.setup-similar-list');
-var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
-
-var WIZARDS_FIRST_NAME = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
-var WIZARDS_LAST_NAME = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
-var WIZARDS_AMOUNT = 4;
-
-var getRandomItem = function (array) {
+function getRandomItem(array) {
   return Math.floor(Math.random() * array.length);
-};
+}
 
 function pullRandomWizards() {
   var wizard = {
@@ -49,6 +80,54 @@ function renderAllWizards(wizards) {
   }
   similarListElement.appendChild(fragment);
 }
+
+userNameInput.addEventListener('input', function () {
+  document.removeEventListener('keydown', onUserInfoPress);
+});
+
+userInfo.addEventListener('click', function () {
+  document.addEventListener('keydown', onUserInfoPress);
+});
+
+userInfo.addEventListener('keydown', function (e) {
+  if (e.key === TAB_KEY) {
+    document.addEventListener('keydown', onUserInfoPress);
+  }
+});
+
+userInfoOpen.addEventListener('click', function () {
+  openUserInfo();
+});
+
+userInfoOpen.addEventListener('keydown', function (e) {
+  if (e.key === ENTER_KEY) {
+    openUserInfo();
+  }
+});
+
+userInfoClose.addEventListener('click', function () {
+  closeUserInfo();
+});
+
+userInfoClose.addEventListener('keydown', function (e) {
+  if (e.key === ENTER_KEY) {
+    closeUserInfo();
+  }
+});
+
+colorOfCoatOfWizard.addEventListener('click', function () {
+  changeColorOfFill(colorOfCoatOfWizard);
+});
+
+colorOfEyesOfWizard.addEventListener('click', function () {
+  changeColorOfFill(colorOfEyesOfWizard);
+});
+
+colorOfFireballOfWizards.addEventListener('click', function () {
+  var randomColor = getRandomColor();
+  colorOfFireballOfWizards.style.backgroundColor = randomColor;
+  colorOfFireballOfWizardsInput.value = randomColor;
+});
 
 renderAllWizards(WIZARDS_AMOUNT);
 
