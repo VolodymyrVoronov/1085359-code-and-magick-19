@@ -19,7 +19,7 @@ var settingsOfWizard = document.querySelector('.setup-wizard');
 var colorOfCoatOfWizard = settingsOfWizard.querySelector('.wizard-coat');
 var colorOfEyesOfWizard = settingsOfWizard.querySelector('.wizard-eyes');
 var colorOfFireballOfWizards = document.querySelector('.setup-fireball-wrap');
-var colorOfFireballOfWizardsInput = colorOfCoatOfWizard.getElementsByTagName('input');
+var colorOfFireballOfWizardsInput = colorOfFireballOfWizards.getElementsByTagName('input');
 
 function onUserInfoPress(e) {
   if (e.key === ESC_KEY) {
