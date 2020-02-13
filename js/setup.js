@@ -32,6 +32,10 @@ function closeUserInfo() {
   document.removeEventListener('keydown', onUserInfoPress);
 }
 
+function hideUserInfoWindow() {
+  userInfo.classList.add('hidden');
+}
+
 function getRandomItem(array) {
   return Math.floor(Math.random() * array.length);
 }
@@ -52,11 +56,13 @@ userInfo.addEventListener('keydown', function (e) {
 
 userInfoOpen.addEventListener('click', function () {
   openUserInfo();
+  window.load(window.renderAllWizards, window.errorHandler);
 });
 
 userInfoOpen.addEventListener('keydown', function (e) {
   if (e.key === window.constants.ENTER_KEY) {
     openUserInfo();
+    window.load(window.renderAllWizards, window.errorHandler);
   }
 });
 
@@ -89,6 +95,9 @@ colorOfFireballOfWizards.addEventListener('click', function () {
   colorOfFireballOfWizardsValue.value = window.constants.COLOR_OF_FIREBALLS[getRandomItem(window.constants.COLOR_OF_FIREBALLS)];
 });
 
-window.renderAllWizards(window.constants.WIZARDS_AMOUNT);
+settingsOfWizard.addEventListener('submit', function (evt) {
+  window.save(settingsOfWizard, hideUserInfoWindow, window.errorHandler);
+  evt.preventDefault();
+});
 
 userInfo.querySelector('.setup-similar').classList.remove('hidden');
