@@ -56,13 +56,11 @@ userInfo.addEventListener('keydown', function (e) {
 
 userInfoOpen.addEventListener('click', function () {
   openUserInfo();
-  window.load(window.renderAllWizards, window.errorHandler);
 });
 
 userInfoOpen.addEventListener('keydown', function (e) {
   if (e.key === window.constants.ENTER_KEY) {
     openUserInfo();
-    window.load(window.renderAllWizards, window.errorHandler);
   }
 });
 
@@ -101,3 +99,4 @@ settingsOfWizard.addEventListener('submit', function (evt) {
 });
 
 userInfo.querySelector('.setup-similar').classList.remove('hidden');
+window.load(window.renderAllWizards, window.errorHandler);
