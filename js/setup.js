@@ -32,6 +32,10 @@ function closeUserInfo() {
   document.removeEventListener('keydown', onUserInfoPress);
 }
 
+function hideUserInfoWindow() {
+  userInfo.classList.add('hidden');
+}
+
 function getRandomItem(array) {
   return Math.floor(Math.random() * array.length);
 }
@@ -89,6 +93,10 @@ colorOfFireballOfWizards.addEventListener('click', function () {
   colorOfFireballOfWizardsValue.value = window.constants.COLOR_OF_FIREBALLS[getRandomItem(window.constants.COLOR_OF_FIREBALLS)];
 });
 
-window.renderAllWizards(window.constants.WIZARDS_AMOUNT);
+settingsOfWizard.addEventListener('submit', function (evt) {
+  window.save(settingsOfWizard, hideUserInfoWindow, window.errorHandler);
+  evt.preventDefault();
+});
 
 userInfo.querySelector('.setup-similar').classList.remove('hidden');
+window.load(window.renderAllWizards, window.errorHandler);
