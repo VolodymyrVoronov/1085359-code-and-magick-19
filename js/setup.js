@@ -110,16 +110,14 @@ settingsOfWizard.addEventListener('submit', function (evt) {
   evt.preventDefault();
 });
 
-
-
 function onLoad(data) {
   wizards = data;
   updateWizards();
-};
+}
 
 function getRank(wizard) {
   var rank = 0;
-  
+
   if (wizard.colorCoat === coatColor) {
     rank += 2;
   }
@@ -129,34 +127,8 @@ function getRank(wizard) {
   return rank;
 }
 
-function namesComparator(left, right) {
-  if (left > right) {
-    return 1;
-  } else if (left < right) {
-    return -1;
-  } else {
-    return 0;
-  }
-}
-
 function updateWizards() {
-  var sameCoatAndEyesWizards = wizards.filter(function (it) {
-    return it.colorCoat === coatColor && 
-      it.colorEyes === eyesColor;
-  })
-
-  var sameCoatWizards = wizards.filter(function (it) {
-    return it.colorCoat === coatColor;
-  });
-
-  var sameEyesWizards = wizards.filter(function (it) {
-    return it.colorEyes === eyesColor;
-  });
-
-  var filteredWizards = sameCoatAndEyesWizards;
-  filteredWizards = filteredWizards.concat(sameCoatWizards);
-  filteredWizards = filteredWizards.concat(sameEyesWizards);
-  filteredWizards = filteredWizards.concat(wizards);
+  similarListElement.textContent = '';
 
   window.renderAllWizards(wizards.slice().sort(function (left, right) {
     var rankDiff = getRank(right) - getRank(left);
