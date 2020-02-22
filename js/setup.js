@@ -14,6 +14,8 @@ var colorOfCoatOfWizardsValue = settingsOfWizard.querySelector('input[name="coat
 var colorOfEyesOfWizardsValue = settingsOfWizard.querySelector('input[name="eyes-color"]');
 var colorOfFireballOfWizardsValue = colorOfFireballOfWizards.querySelector('input');
 
+var similarListElement = document.querySelector('.setup-similar-list');
+
 function onUserInfoPress(e) {
   if (e.key === window.constants.ESC_KEY) {
     closeUserInfo();
@@ -78,14 +80,24 @@ userInfoClose.addEventListener('keydown', function (e) {
   }
 });
 
+var coatColor;
+var eyesColor;
+var wizards = [];
+
 colorOfCoatOfWizard.addEventListener('click', function () {
-  colorOfCoatOfWizard.style.fill = window.constants.COLOR_OF_COATS[getRandomItem(window.constants.COLOR_OF_COATS)];
-  colorOfCoatOfWizardsValue.value = window.constants.COLOR_OF_COATS[getRandomItem(window.constants.COLOR_OF_COATS)];
+  var newColorOfCoat = window.constants.COLOR_OF_COATS[getRandomItem(window.constants.COLOR_OF_COATS)];
+  colorOfCoatOfWizard.style.fill = newColorOfCoat;
+  colorOfCoatOfWizardsValue.value = newColorOfCoat;
+  coatColor = newColorOfCoat;
+  updateWizards();
 });
 
 colorOfEyesOfWizard.addEventListener('click', function () {
-  colorOfEyesOfWizard.style.fill = window.constants.COLOR_OF_EYES[getRandomItem(window.constants.COLOR_OF_EYES)];
-  colorOfEyesOfWizardsValue.value = window.constants.COLOR_OF_EYES[getRandomItem(window.constants.COLOR_OF_EYES)];
+  var newColorOfEye = window.constants.COLOR_OF_EYES[getRandomItem(window.constants.COLOR_OF_EYES)];
+  colorOfEyesOfWizard.style.fill = newColorOfEye;
+  colorOfEyesOfWizardsValue.value = newColorOfEye;
+  eyesColor = newColorOfEye;
+  updateWizards();
 });
 
 colorOfFireballOfWizards.addEventListener('click', function () {
@@ -98,5 +110,34 @@ settingsOfWizard.addEventListener('submit', function (evt) {
   evt.preventDefault();
 });
 
+function onLoad(data) {
+  wizards = data;
+  updateWizards();
+}
+
+function getRank(wizard) {
+  var rank = 0;
+
+  if (wizard.colorCoat === coatColor) {
+    rank += 2;
+  }
+  if (wizard.colorEyes === eyesColor) {
+    rank += 1;
+  }
+  return rank;
+}
+
+function updateWizards() {
+  similarListElement.textContent = '';
+
+  window.renderAllWizards(wizards.slice().sort(function (left, right) {
+    var rankDiff = getRank(right) - getRank(left);
+    if (rankDiff === 0) {
+      rankDiff = wizards.indexOf(left) - wizards.indexOf(right);
+    }
+    return rankDiff;
+  }));
+}
+
 userInfo.querySelector('.setup-similar').classList.remove('hidden');
-window.load(window.renderAllWizards, window.errorHandler);
+window.load(onLoad, window.errorHandler);
